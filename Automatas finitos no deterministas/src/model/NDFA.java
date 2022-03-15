@@ -26,5 +26,15 @@ public class NDFA {
 		
 	}
 	
+	public boolean validateWord(String word) {
+		boolean validation = true;
+		
+		return validation;
+	}
 	
+	public boolean isDeterministic() {
+		boolean isDeterministic = true;
+		
+		return isDeterministic;
+	}
 }
