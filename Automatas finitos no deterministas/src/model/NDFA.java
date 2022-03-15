@@ -37,4 +37,12 @@ public class NDFA {
 		
 		return isDeterministic;
 	}
+
+	public ArrayList<State> getStates(){
+		return this.states;
+	}
+
+	public ArrayList<Transition> getTransitions(){
+		return this.transitions;
+	}
 }
