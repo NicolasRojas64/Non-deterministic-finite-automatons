@@ -7,42 +7,25 @@ public class NDFA {
 	private ArrayList<Transition> transitions;
 	
 	public NDFA() {
-		
+		states=new ArrayList<State>();
+		transitions=new ArrayList<Transition>();
 	}
 	
-	public void addState(State state) {
-		
+	public void addState(String name, StateType type) {
+		states.add(new State(name,type);
 	}
 	
 	public void deleteState(State state) {
-		
+		list.remove(state);
 	}
 	
 	public void addTransition(char transitionValue, State initialState, State finalState) {
-		
+		list.add(new Transition(transitionValue,initialState,finalState));
 	}
 	
 	public void deleteTransition(Transition transition) {
-		
+		list.remove(transition);
 	}
 	
-	public boolean validateWord(String word) {
-		boolean validation = true;
-		
-		return validation;
-	}
 	
-	public boolean isDeterministic() {
-		boolean isDeterministic = true;
-		
-		return isDeterministic;
-	}
-
-	public ArrayList<State> getStates(){
-		return this.states;
-	}
-
-	public ArrayList<Transition> getTransitions(){
-		return this.transitions;
-	}
 }
