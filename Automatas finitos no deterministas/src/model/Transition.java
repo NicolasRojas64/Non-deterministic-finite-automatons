@@ -35,5 +35,8 @@ public class Transition {
 		this.finalState = finalState;
 	}
 	
-	
+	public String getInfo(){
+		return initialState.getName() + "," + initialState.getType() + "," + 
+		finalState.getName() + "," + finalState.getType() + "," + transitionValue;
+	}
 }
