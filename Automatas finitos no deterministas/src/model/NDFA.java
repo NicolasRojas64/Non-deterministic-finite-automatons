@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class NDFA {
 	private ArrayList<State> states;
 	private ArrayList<Transition> transitions;
+	private ArrayList<ArrayList<Transition>> statesTransitions;
+	private  ArrayList<State> currentStates;
 	
 	public NDFA() {
 		states=new ArrayList<State>();
@@ -27,45 +29,59 @@ public class NDFA {
 		transitions.remove(transition);
 	}
 
-	
-	//Para determinista
-	public boolean validateWordDeterministic(String word) {
+	public boolean validateWord(String word) {
 		boolean validation = false;
 		String[] splitWord = word.split(""); 
-		ArrayList<Transition> stateTransitions = searchTransitions(this.states.get(0));
-		State currentState = stateTransitions.get(0).getFinalState();
+		this.statesTransitions = new ArrayList<ArrayList<Transition>>();
+		statesTransitions.add(searchTransitions(this.states.get(0)));
+		this.currentStates = new ArrayList<State>();
+		currentStates.add(statesTransitions.get(0).get(0).getInitialState());
 
 		for(int i = 0; i<splitWord.length; i++){
-			for(int j = 0; j < stateTransitions.size(); j++){
-				if(splitWord[i].compareTo( String.valueOf(stateTransitions.get(j).getTransitionValue()) ) == 0 ){
-					System.out.println(splitWord[i] + ": " +stateTransitions.get(j).getInfo());
-					currentState = stateTransitions.get(j).getFinalState();
-					stateTransitions = searchTransitions(currentState);
-					validation = true;
-					break;
-				}
-				else{
-					validation = false;
-				}
-			}
-
+			validation = validateCaracter(splitWord[i]);
 			if(validation == false){
 				return validation;
 			}
 		}
-
-		if(currentState.getType().equals(StateType.FINAL)){
-			validation = true;
-		}else{
-			validation = false;
+		for(int i = 0; i < currentStates.size(); i++){
+			if(currentStates.get(i).getType().equals(StateType.FINAL)){
+				validation = true;
+				break;
+			}else{
+				validation = false;
+			}
 		}
 
 		return validation;
 	}
 
-	//Para no determinista 
-	public boolean validateWordNonDeterministic(String word){
-		return false;
+	public boolean validateCaracter(String caracter){
+		boolean validation = false;
+		this.currentStates = new ArrayList<State>();
+		for(int i = 0; i < statesTransitions.size(); i++){
+			ArrayList<Transition> stateTransitions = statesTransitions.get(i);
+			for(int j = 0; j < stateTransitions.size(); j++){
+				if(caracter.compareTo(String.valueOf(stateTransitions.get(j).getTransitionValue())) == 0 ){
+					currentStates.add(stateTransitions.get(j).getFinalState());
+				}
+			}
+		}
+		fillStatesTransitions();
+		if(currentStates.isEmpty() == false){
+			validation = true;
+		}
+		else{
+			validation = false;
+		}
+		
+		return validation;
+	}
+
+	private void fillStatesTransitions(){
+		this.statesTransitions = new ArrayList<ArrayList<Transition>>();
+		for(int i = 0; i < this.currentStates.size(); i++){
+			statesTransitions.add(searchTransitions(currentStates.get(i)));
+		}
 	}
 
 	public ArrayList<Transition> searchTransitions(State state){
