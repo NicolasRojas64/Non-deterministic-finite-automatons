@@ -2,5 +2,9 @@
     "java.project.sourcePaths": [
         "Automatas finitos no deterministas/src",
         "Automatas finitos no deterministas/tests"
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "d:\\Downloads\\gson-2.8.2.jar"
     ]
 }

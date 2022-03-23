@@ -1,0 +1,1 @@
+[{"transitionValue":"1","initialState":{"name":"q0","type":"INITIAL"},"finalState":{"name":"q1","type":"DEFAULT"}},{"transitionValue":"0","initialState":{"name":"q1","type":"DEFAULT"},"finalState":{"name":"q2","type":"DEFAULT"}},{"transitionValue":"1","initialState":{"name":"q2","type":"DEFAULT"},"finalState":{"name":"q3","type":"FINAL"}}]
